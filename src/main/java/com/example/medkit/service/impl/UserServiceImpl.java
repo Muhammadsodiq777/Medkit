@@ -38,7 +38,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public GeneralResponse<UserEntity> getUserByPhone(String phoneNumber) {
         UserEntity byPhoneNumber = repository.findByPhoneNumber(phoneNumber);
-
         if (byPhoneNumber == null)
             return new GeneralResponse<>(false, -1, "Foydalanuvchilar topilmadi", null);
         return new GeneralResponse<>(true, 1, "success", byPhoneNumber);
