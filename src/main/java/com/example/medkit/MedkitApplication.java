@@ -8,6 +8,7 @@ public class MedkitApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MedkitApplication.class, args);
+        System.out.println("Started!!!");
     }
 
 }
