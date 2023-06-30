@@ -28,6 +28,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public GeneralResponse<List<UserEntity>> getDoctors() {
+        List<UserEntity> all = repository.findByRoleType(1);
+        if (all.isEmpty())
+            return new GeneralResponse<>(false, -1, "Foydalanuvchilar topilmadi", null);
+        return new GeneralResponse<>(true, 1, "success", all);
+    }
+
+    @Override
     public GeneralResponse<UserEntity> getUserByPhone(String phoneNumber) {
         UserEntity byPhoneNumber = repository.findByPhoneNumber(phoneNumber);
 

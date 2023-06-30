@@ -9,6 +9,7 @@ import java.util.List;
 public interface UserService {
 
     GeneralResponse<List<UserEntity>> getAllUsers();
+    GeneralResponse<List<UserEntity>> getDoctors();
 
     GeneralResponse<UserEntity> getUserByPhone(String phoneNumber);
 
