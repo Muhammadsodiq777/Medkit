@@ -33,7 +33,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/get/{phoneNumber}")
+    @GetMapping("/get/by/phone-number/{phoneNumber}")
     public ResponseEntity<?> getUserByPhoneNumber(@PathVariable(name = "phoneNumber") String phoneNumber) {
         try {
            return ResponseEntity.ok(service.getUserByPhone(phoneNumber));
@@ -42,7 +42,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/get/by-user-id/{id}")
     public ResponseEntity<?> getUserById(@PathVariable(name = "id") Long id) {
         try {
            return ResponseEntity.ok(service.getAllUsers());

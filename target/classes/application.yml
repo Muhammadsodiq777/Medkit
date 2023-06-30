@@ -8,11 +8,11 @@ spring:
     username: medkit_user
     password: hGgDOyeAyWqmLynH6yyaxUPLznVjdW39
   jpa:
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 server:
   port: 8085
