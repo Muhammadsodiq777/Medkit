@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class DoctorDto {
 
     private String fio;
 
@@ -14,5 +14,4 @@ public class UserDto {
 
     private String userName;
 
-    private Integer roleType;
 }

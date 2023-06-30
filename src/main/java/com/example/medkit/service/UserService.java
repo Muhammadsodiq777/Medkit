@@ -2,7 +2,7 @@ package com.example.medkit.service;
 
 import com.example.medkit.domain.UserEntity;
 import com.example.medkit.dto.GeneralResponse;
-import com.example.medkit.dto.request.UserDto;
+import com.example.medkit.dto.request.DoctorDto;
 
 import java.util.List;
 
@@ -15,5 +15,5 @@ public interface UserService {
 
     GeneralResponse<UserEntity> getUserById(Long id);
 
-    GeneralResponse<UserEntity> saveUser(UserDto dto);
+    GeneralResponse<UserEntity> saveUser(DoctorDto dto);
 }

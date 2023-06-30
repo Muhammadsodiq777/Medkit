@@ -2,7 +2,7 @@ package com.example.medkit.service.impl;
 
 import com.example.medkit.domain.UserEntity;
 import com.example.medkit.dto.GeneralResponse;
-import com.example.medkit.dto.request.UserDto;
+import com.example.medkit.dto.request.DoctorDto;
 import com.example.medkit.repository.UserRepository;
 import com.example.medkit.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public GeneralResponse<UserEntity> saveUser(UserDto dto) {
+    public GeneralResponse<UserEntity> saveUser(DoctorDto dto) {
 
         UserEntity byPhoneNumber = repository.findByPhoneNumber(dto.getPhoneNumber());
         if (byPhoneNumber != null)
@@ -65,7 +65,6 @@ public class UserServiceImpl implements UserService {
         entity.setUserName(dto.getUserName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setIsActive(1);
-        entity.setRoleType(dto.getRoleType());
         entity.setCreated_at(LocalDateTime.now());
 
         UserEntity save = repository.save(entity);

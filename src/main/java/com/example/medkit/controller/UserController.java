@@ -1,6 +1,7 @@
 package com.example.medkit.controller;
 
-import com.example.medkit.dto.request.UserDto;
+import com.example.medkit.dto.request.PatientDto;
+import com.example.medkit.dto.request.DoctorDto;
 import com.example.medkit.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class UserController {
     @GetMapping("/get/all")
     public ResponseEntity<?> getAllUsers() {
         try {
-           return ResponseEntity.ok(service.getAllUsers());
+            return ResponseEntity.ok(service.getAllUsers());
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
         }
@@ -27,7 +28,7 @@ public class UserController {
     @GetMapping("/get/all-doctors")
     public ResponseEntity<?> getAllDoctors() {
         try {
-           return ResponseEntity.ok(service.getDoctors());
+            return ResponseEntity.ok(service.getDoctors());
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
         }
@@ -36,7 +37,7 @@ public class UserController {
     @GetMapping("/get/by/phone-number/{phoneNumber}")
     public ResponseEntity<?> getUserByPhoneNumber(@PathVariable(name = "phoneNumber") String phoneNumber) {
         try {
-           return ResponseEntity.ok(service.getUserByPhone(phoneNumber));
+            return ResponseEntity.ok(service.getUserByPhone(phoneNumber));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
         }
@@ -45,16 +46,19 @@ public class UserController {
     @GetMapping("/get/by-user-id/{id}")
     public ResponseEntity<?> getUserById(@PathVariable(name = "id") Long id) {
         try {
-           return ResponseEntity.ok(service.getAllUsers());
+            return ResponseEntity.ok(service.getAllUsers());
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
         }
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<?> saveUser(@RequestBody UserDto dto) {
+    @PostMapping("/save") // 1 = DOCTOR | 0 = PATIENT
+    public ResponseEntity<?> saveUser(@RequestParam Integer type, DoctorDto dto, PatientDto patientDto) {
         try {
-            return ResponseEntity.ok(service.saveUser(dto));
+            if (type == 1)
+                return ResponseEntity.ok(service.saveUser(dto));
+            else
+                return ResponseEntity.ok(service.saveUser(dto));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
         }
