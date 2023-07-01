@@ -2,6 +2,8 @@ package com.example.medkit.controller;
 
 import com.example.medkit.dto.request.PatientDto;
 import com.example.medkit.dto.request.DoctorDto;
+import com.example.medkit.service.DoctorService;
+import com.example.medkit.service.PatientService;
 import com.example.medkit.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService service;
+    private final PatientService patientService;
+    private final DoctorService doctorService;
 
     @GetMapping("/get/all")
     public ResponseEntity<?> getAllUsers() {
@@ -46,19 +50,19 @@ public class UserController {
     @GetMapping("/get/by-user-id/{id}")
     public ResponseEntity<?> getUserById(@PathVariable(name = "id") Long id) {
         try {
-            return ResponseEntity.ok(service.getAllUsers());
+            return ResponseEntity.ok(service.getUserById(id));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
         }
     }
 
     @PostMapping("/save") // 1 = DOCTOR | 0 = PATIENT
-    public ResponseEntity<?> saveUser(@RequestParam Integer type, DoctorDto dto, PatientDto patientDto) {
+    public ResponseEntity<?> saveUser(@RequestParam Integer type, DoctorDto doctorDto, PatientDto patientDto) {
         try {
             if (type == 1)
-                return ResponseEntity.ok(service.saveUser(dto));
+                return ResponseEntity.ok(doctorService.saveDoctor(doctorDto));
             else
-                return ResponseEntity.ok(service.saveUser(dto));
+                return ResponseEntity.ok(patientService.savePatient(patientDto));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
         }

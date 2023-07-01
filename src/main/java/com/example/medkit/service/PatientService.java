@@ -1,9 +1,8 @@
 package com.example.medkit.service;
 
 import com.example.medkit.domain.PatientEntity;
-import com.example.medkit.domain.UserEntity;
 import com.example.medkit.dto.GeneralResponse;
-import com.example.medkit.dto.request.DoctorDto;
+import com.example.medkit.dto.request.PatientDto;
 
 import java.util.List;
 
@@ -15,5 +14,5 @@ public interface PatientService {
 
     GeneralResponse<PatientEntity> getPatientById(Long id);
 
-//    GeneralResponse<UserEntity> saveUser(DoctorDto dto);
+    GeneralResponse<PatientEntity> savePatient(PatientDto patientDto);
 }
