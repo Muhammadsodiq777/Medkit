@@ -14,4 +14,7 @@ public class DoctorDto {
 
     private String userName;
 
+    private String university;
+
+    private String diploma;
 }

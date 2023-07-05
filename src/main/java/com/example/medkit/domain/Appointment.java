@@ -17,9 +17,8 @@ public class Appointment {
 
     @Id
     @Column(name = "ID", unique = true, nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 
     @Column(name = "DOCTOR_ID")
     private Long doctorId;
@@ -28,10 +27,10 @@ public class Appointment {
     private Long patientId;
 
     @Column(name = "STARTING_DATE")
-    private LocalDateTime starting_date;
+    private String starting_date;
 
     @Column(name = "ENDING_DATE")
-    private LocalDateTime ending_date;
+    private String ending_date;
 
 
 }

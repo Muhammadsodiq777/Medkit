@@ -18,15 +18,23 @@ public class DoctorServiceImpl implements DoctorService {
 
     private final DoctorRepository repository;
 
+
+
     @Override
     public GeneralResponse<List<DoctorEntity>> getAllDoctors() {
-        List<DoctorEntity> all = repository.findAll();
-
+        List<DoctorEntity> all = repository.getAllDoctors();
         if (all.isEmpty())
             return new GeneralResponse<>(false, -1, "Foydalanuvchilar topilmadi", null);
         return new GeneralResponse<>(true, 1, "success", all);
     }
 
+    @Override
+    public GeneralResponse<List<DoctorEntity>> getDoctorByFilter(Integer code, String name, Integer expFrom, Integer expTo) {
+        List<DoctorEntity> all = repository.getDoctorByFilter(name, expFrom, expTo);
+        if (all.isEmpty())
+            return new GeneralResponse<>(false, -1, "Foydalanuvchilar topilmadi", null);
+        return new GeneralResponse<>(true, 1, "success", all);
+    }
 
     @Override
     public GeneralResponse<DoctorEntity> getDoctorByPhone(String phoneNumber) {
@@ -53,9 +61,16 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setPhoneNumber(dto.getPhoneNumber());
         doctor.setIsActive(1);
         doctor.setCreated_at(LocalDateTime.now());
+        doctor.setDiploma(dto.getDiploma());
+        doctor.setUniversity(doctor.getUniversity());
 
         DoctorEntity savedDoctor = repository.save(doctor);
         return new GeneralResponse<>(true, 1, "success", savedDoctor);
+    }
+
+    @Override
+    public GeneralResponse<DoctorEntity> getDoctorPatients(DoctorDto dto) {
+        return null;
     }
 
 }

@@ -17,7 +17,7 @@ public class UserEntity {
 
     @Id
     @Column(name = "ID", unique = true, nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "PHONE_NUMBER", nullable = false)

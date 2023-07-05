@@ -12,6 +12,4 @@ import java.util.Optional;
 public interface PatientRepository extends JpaRepository<PatientEntity, Long> {
 
     Optional<PatientEntity> findByPhoneNumber(String phoneNumber);
-
-
 }

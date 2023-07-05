@@ -26,6 +26,12 @@ public class Recipes {
     @Column(name = "TIMES")
     private Integer times;
 
+    @Column(name = "DOCTOR_ID")
+    private Long doctorId;
+
+    @Column(name = "PATIENT_ID")
+    private Long patientId;
+
     @Column(name = "DURATION")
     private Integer duration; // in days
 

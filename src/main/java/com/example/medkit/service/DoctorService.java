@@ -9,10 +9,13 @@ import java.util.List;
 public interface DoctorService {
 
     GeneralResponse<List<DoctorEntity>> getAllDoctors();
+    GeneralResponse<List<DoctorEntity>> getDoctorByFilter(Integer code, String name, Integer expFrom, Integer expTo);
 
     GeneralResponse<DoctorEntity> getDoctorByPhone(String phoneNumber);
 
     GeneralResponse<DoctorEntity> getDoctorById(Long id);
 
     GeneralResponse<DoctorEntity> saveDoctor(DoctorDto dto);
+
+    GeneralResponse<DoctorEntity> getDoctorPatients(DoctorDto dto);
 }

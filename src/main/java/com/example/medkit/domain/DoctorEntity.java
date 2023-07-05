@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 @Getter
 @Setter
@@ -23,17 +24,23 @@ public class DoctorEntity {
     @Column(name = "PROFESSION")
     private String profession;
 
-    @Column(name = "PATIENT")
-    private Long patient;
-
     @Column(name = "EXPERIENCE")
-    private Long experience;
+    private Long experience = 1 + new Random().nextLong() * (10 - 1);
 
     @Column(name = "RATING")
-    private Double rating;
+    private Double rating = 3 + new Random().nextDouble() * (5 - 3);
 
     @Column(name = "ABOUT")
     private String about;
+
+    @Column(name = "AVAILABLE")
+    private String available = "08:00 am - 18:00 pm";
+
+    @Column(name = "UNIVERSITY")
+    private String university;
+
+    @Column(name = "diploma")
+    private String diploma;
 
     @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;

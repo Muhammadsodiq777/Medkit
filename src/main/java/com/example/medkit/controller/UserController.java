@@ -5,6 +5,7 @@ import com.example.medkit.dto.request.DoctorDto;
 import com.example.medkit.service.DoctorService;
 import com.example.medkit.service.PatientService;
 import com.example.medkit.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,42 +21,7 @@ public class UserController {
     private final PatientService patientService;
     private final DoctorService doctorService;
 
-    @GetMapping("/get/all")
-    public ResponseEntity<?> getAllUsers() {
-        try {
-            return ResponseEntity.ok(service.getAllUsers());
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
-        }
-    }
-
-    @GetMapping("/get/all-doctors")
-    public ResponseEntity<?> getAllDoctors() {
-        try {
-            return ResponseEntity.ok(service.getDoctors());
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
-        }
-    }
-
-    @GetMapping("/get/by/phone-number/{phoneNumber}")
-    public ResponseEntity<?> getUserByPhoneNumber(@PathVariable(name = "phoneNumber") String phoneNumber) {
-        try {
-            return ResponseEntity.ok(service.getUserByPhone(phoneNumber));
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
-        }
-    }
-
-    @GetMapping("/get/by-user-id/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable(name = "id") Long id) {
-        try {
-            return ResponseEntity.ok(service.getUserById(id));
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
-        }
-    }
-
+    @Operation(summary = "Doctor va Patient larni saqalsh uchun api", description = "Doctor uchun type = 1 | Patient uchun type = 0")
     @PostMapping("/save") // 1 = DOCTOR | 0 = PATIENT
     public ResponseEntity<?> saveUser(@RequestParam Integer type, DoctorDto doctorDto, PatientDto patientDto) {
         try {
