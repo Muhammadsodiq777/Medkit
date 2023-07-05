@@ -39,7 +39,7 @@ public class DoctorController {
 
     @Operation(summary = "Filter bo'yicha doctorlarni olish")
     @GetMapping("/get/by-filter")
-    public ResponseEntity<?> getDoctor(Integer code, String name, Integer expFrom, Integer expTo) {
+    public ResponseEntity<?> getDoctor(@RequestParam Integer code, @RequestParam String name, @RequestParam Integer expFrom, @RequestParam Integer expTo) {
         try {
             return ResponseEntity.ok(doctorService.getDoctorByFilter(code, name, expFrom, expTo));
         } catch (Exception ex) {

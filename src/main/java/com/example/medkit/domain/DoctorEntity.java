@@ -25,7 +25,7 @@ public class DoctorEntity {
     private String profession;
 
     @Column(name = "EXPERIENCE")
-    private Long experience = 1 + new Random().nextLong() * (10 - 1);
+    private Long experience = new Random().nextLong(10) +1;
 
     @Column(name = "RATING")
     private Double rating = 3 + new Random().nextDouble() * (5 - 3);
@@ -42,10 +42,10 @@ public class DoctorEntity {
     @Column(name = "diploma")
     private String diploma;
 
-    @Column(name = "PHONE_NUMBER", nullable = false)
+    @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
-    @Column(name = "FULL_NAME", nullable = false)
+    @Column(name = "FULL_NAME")
     private String fio;
 
     @Column(name = "IS_ACTIVE", nullable = false)

@@ -21,13 +21,20 @@ public class UserController {
     private final PatientService patientService;
     private final DoctorService doctorService;
 
-    @Operation(summary = "Doctor va Patient larni saqalsh uchun api", description = "Doctor uchun type = 1 | Patient uchun type = 0")
-    @PostMapping("/save") // 1 = DOCTOR | 0 = PATIENT
-    public ResponseEntity<?> saveUser(@RequestParam Integer type, DoctorDto doctorDto, PatientDto patientDto) {
+    @Operation(summary = "Doctor larni saqalsh uchun api")
+    @PostMapping("/save/doctor") // 1 = DOCTOR | 0 = PATIENT
+    public ResponseEntity<?> saveDoctor(@RequestBody DoctorDto doctorDto) {
         try {
-            if (type == 1)
                 return ResponseEntity.ok(doctorService.saveDoctor(doctorDto));
-            else
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+        }
+    }
+
+    @Operation(summary = "Patient larni saqalsh uchun api")
+    @PostMapping("/save/user") // 1 = DOCTOR | 0 = PATIENT
+    public ResponseEntity<?> saveUser(@RequestBody PatientDto patientDto) {
+        try {
                 return ResponseEntity.ok(patientService.savePatient(patientDto));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());

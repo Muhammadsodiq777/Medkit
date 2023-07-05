@@ -60,7 +60,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public GeneralResponse<DoctorEntity> saveDoctor(DoctorDto dto) {
         Optional<DoctorEntity> optionalDoctor = repository.findByPhoneNumber(dto.getPhoneNumber());
-        if (optionalDoctor.isEmpty())
+        if (optionalDoctor.isPresent())
             return new GeneralResponse<>(false, -1, "Bu raqam bilan doctor mavjud", null);
 
         DoctorEntity doctor = new DoctorEntity();

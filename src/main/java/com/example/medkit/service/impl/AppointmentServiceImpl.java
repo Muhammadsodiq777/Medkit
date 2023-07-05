@@ -2,16 +2,17 @@ package com.example.medkit.service.impl;
 
 import com.example.medkit.domain.Appointment;
 import com.example.medkit.domain.DoctorEntity;
+import com.example.medkit.domain.PatientDoctorEntity;
 import com.example.medkit.domain.PatientEntity;
 import com.example.medkit.dto.GeneralResponse;
 import com.example.medkit.repository.AppointmentRepository;
 import com.example.medkit.repository.DoctorRepository;
+import com.example.medkit.repository.PatientDoctorRepository;
 import com.example.medkit.repository.PatientRepository;
 import com.example.medkit.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,15 +20,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {
 
-    private final AppointmentRepository appointmentRepository;
+    private final AppointmentRepository repository;
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
+    private final PatientDoctorRepository patientDoctorRepository;
     @Override
     public GeneralResponse<List<Appointment>> getAppointmentsById(Long doctorId) {
-        List<Appointment> appointmentsByDoctorId = appointmentRepository.getAppointmentsByDoctorId(doctorId);
+        List<Appointment> appointmentsByDoctorId = repository.getAppointmentsByDoctorId(doctorId);
 
         if (appointmentsByDoctorId.isEmpty()) {
-            List<Appointment> aaa = appointmentRepository.getAppointmentByPatientId(doctorId);
+            List<Appointment> aaa = repository.getAppointmentByPatientId(doctorId);
             if(aaa.isEmpty())
                 return new GeneralResponse<>(false, -1, "Appointment topilmadi", null);
             return new GeneralResponse<>(true, 1, "success", appointmentsByDoctorId);
@@ -46,7 +48,15 @@ public class AppointmentServiceImpl implements AppointmentService {
             appointment.setDoctorId(doctor.get().getId());
             appointment.setStarting_date(startDate);
             appointment.setEnding_date(endDate);
-            Appointment savedAppointment = appointmentRepository.save(appointment);
+            Appointment savedAppointment = repository.save(appointment);
+
+            /// ---
+            PatientDoctorEntity entity = new PatientDoctorEntity();
+            entity.setPatientId(patient.get().getId());
+            entity.setDoctorId(doctor.get().getId());
+            patientDoctorRepository.save(entity);
+            ///---
+
             return new GeneralResponse<>(true, 1, "Appointment tasdiqlandi", savedAppointment.getId());
         }
 
