@@ -25,7 +25,7 @@ public class AppointmentController {
     }
 
     @Operation(summary = "Yangi appointment belgilash", description = "yyyy-MM-dd-HH-mm Start date shu ko'rinishda bo'lsa yaxshi bo'lar edi")
-    @GetMapping("/make-appointment")
+    @PostMapping("/make-appointment")
     public ResponseEntity<?> makeAppointment(@RequestParam String patientPhoneNumber, @RequestParam String doctorsPhoneNumber, @RequestParam String startDate, @RequestParam String endDate){
         try {
             return ResponseEntity.ok(appointmentService.makeAppointment(patientPhoneNumber,doctorsPhoneNumber,startDate,endDate));
