@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface CustomRepository {
 
+
     List<DoctorEntity> getDoctorByFilter(String name, Integer expFrom, Integer expTo);
 
     List<DoctorEntity> getAllDoctors();
