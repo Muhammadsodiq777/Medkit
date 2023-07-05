@@ -15,6 +15,7 @@ com\example\medkit\domain\Meeting.class
 com\example\medkit\dto\request\PatientDto.class
 com\example\medkit\service\UserService.class
 com\example\medkit\service\impl\PatientServiceImpl.class
+com\example\medkit\controller\PatientController.class
 com\example\medkit\domain\Appointment.class
 com\example\medkit\domain\UserEntity.class
 com\example\medkit\dto\GeneralResponse.class
@@ -30,6 +31,7 @@ com\example\medkit\service\DoctorService.class
 com\example\medkit\controller\AppointmentController.class
 com\example\medkit\repository\MeetingRepository.class
 com\example\medkit\dto\RecipesDto.class
+com\example\medkit\repository\PatientDoctorRepository.class
 com\example\medkit\service\AppointmentService.class
 com\example\medkit\controller\UserController.class
 com\example\medkit\domain\DoctorEntity.class
