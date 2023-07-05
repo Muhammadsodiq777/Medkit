@@ -43,6 +43,14 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public GeneralResponse<List<DoctorEntity>> getDoctorByProfession(String prof) {
+        List<DoctorEntity> all = repository.getDoctorByProfession(prof);
+        if (all.isEmpty())
+            return new GeneralResponse<>(false, -1, "Foydalanuvchilar topilmadi", null);
+        return new GeneralResponse<>(true, 1, "success", all);
+    }
+
+    @Override
     public GeneralResponse<DoctorEntity> getDoctorById(Long id) {
         Optional<DoctorEntity> byPhoneNumber = repository.findById(id);
 

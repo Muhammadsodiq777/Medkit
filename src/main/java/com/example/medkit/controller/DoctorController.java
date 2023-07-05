@@ -67,6 +67,16 @@ public class DoctorController {
         }
     }
 
+    @Operation(summary = "Doctorni Profession bo'yicha qidirish")
+    @GetMapping("/get/by/profession")
+    public ResponseEntity<?> getDoctorByProfession(@RequestParam String prof) {
+        try {
+            return ResponseEntity.ok(doctorService.getDoctorByProfession(prof));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+        }
+    }
+
     @Operation(summary = "Doctorni id raqami bo'yicha olish")
     @GetMapping("/get/by-doctor-id/{id}")
     public ResponseEntity<?> getDoctorById(@PathVariable(name = "id") Long id) {

@@ -12,6 +12,7 @@ public interface DoctorService {
     GeneralResponse<List<DoctorEntity>> getDoctorByFilter(Integer code, String name, Integer expFrom, Integer expTo);
 
     GeneralResponse<DoctorEntity> getDoctorByPhone(String phoneNumber);
+    GeneralResponse<List<DoctorEntity>> getDoctorByProfession(String prof);
 
     GeneralResponse<DoctorEntity> getDoctorById(Long id);
 
