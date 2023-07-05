@@ -11,8 +11,5 @@ import java.util.List;
 @Repository
 public interface RecipesRepository extends JpaRepository<Recipes, Long>, CustomRepository {
 
-    @Query(value = "select * from md_recipes md where md.doctor_id = :doctorId and md.patient_id = :patientId",nativeQuery = true)
-    List<Recipes> getRecipesByDoctorAndUserId(Long doctorId, Long patientId);
-
     List<Recipes> getRecipesByPatientId(Long id);
 }
