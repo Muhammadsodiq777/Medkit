@@ -38,7 +38,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public GeneralResponse<DoctorEntity> getDoctorByPhone(String phoneNumber) {
-        Optional<DoctorEntity> byPhoneNumber = repository.findByPhoneNumber(phoneNumber);
+        Optional<DoctorEntity> byPhoneNumber = repository.findByPhoneNumberForDoctor(phoneNumber);
         return byPhoneNumber.map(doctorEntity -> new GeneralResponse<>(true, 1, "success", doctorEntity)).orElseGet(() -> new GeneralResponse<>(false, -1, "Foydalanuvchilar topilmadi", null));
     }
 
@@ -59,8 +59,8 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public GeneralResponse<DoctorEntity> saveDoctor(DoctorDto dto) {
-        Optional<DoctorEntity> optionalDoctor = repository.findByPhoneNumber(dto.getPhoneNumber());
-        if (optionalDoctor.isPresent())
+        Optional<DoctorEntity> optionalDoctor = repository.findByPhoneNumberForDoctor(dto.getPhoneNumber());
+        if (!optionalDoctor.isPresent())
             return new GeneralResponse<>(false, -1, "Bu raqam bilan doctor mavjud", null);
 
         DoctorEntity doctor = new DoctorEntity();

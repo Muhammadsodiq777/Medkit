@@ -28,6 +28,8 @@ D:\2.PersonalWork\Medkit\src\main\java\com\example\medkit\dto\response\DoctorFil
 D:\2.PersonalWork\Medkit\src\main\java\com\example\medkit\service\RecipesService.java
 D:\2.PersonalWork\Medkit\src\main\java\com\example\medkit\service\MeetingService.java
 D:\2.PersonalWork\Medkit\src\main\java\com\example\medkit\domain\Appointment.java
+D:\2.PersonalWork\Medkit\src\main\java\com\example\medkit\repository\custom\CustomRepository.java
+D:\2.PersonalWork\Medkit\src\main\java\com\example\medkit\repository\custom\CustomRepositoryImpl.java
 D:\2.PersonalWork\Medkit\src\main\java\com\example\medkit\repository\RecipesRepository.java
 D:\2.PersonalWork\Medkit\src\main\java\com\example\medkit\domain\PatientEntity.java
 D:\2.PersonalWork\Medkit\src\main\java\com\example\medkit\dto\RecipesDto.java

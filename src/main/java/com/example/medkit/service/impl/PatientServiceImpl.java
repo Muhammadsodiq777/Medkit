@@ -32,7 +32,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public GeneralResponse<PatientEntity> getPatientByPhone(String phoneNumber) {
-        Optional<PatientEntity> byPhoneNumber = repository.findByPhoneNumber(phoneNumber);
+        Optional<PatientEntity> byPhoneNumber = repository.findByPhoneNumberForPatient(phoneNumber);
         return byPhoneNumber.map(patientEntity -> new GeneralResponse<>(true, 1, "success", patientEntity)).orElseGet(() -> new GeneralResponse<>(false, -1, "Foydalanuvchilar topilmadi", null));
     }
 
@@ -47,8 +47,8 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public GeneralResponse<PatientEntity> savePatient(PatientDto patientDto) {
 
-        Optional<PatientEntity> patient = repository.findByPhoneNumber(patientDto.getPhoneNumber());
-        if (patient.isPresent()){
+        Optional<PatientEntity> patient = repository.findByPhoneNumberForPatient(patientDto.getPhoneNumber());
+        if (!patient.isPresent()){
             return new GeneralResponse<>(false, -1, "Bu raqam bilan foydalanuvchi mavjud", null);
         }
         else {

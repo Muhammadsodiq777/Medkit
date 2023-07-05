@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService service;
     private final PatientService patientService;
     private final DoctorService doctorService;
 

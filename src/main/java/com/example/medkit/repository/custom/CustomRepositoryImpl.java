@@ -2,6 +2,7 @@ package com.example.medkit.repository.custom;
 
 
 import com.example.medkit.domain.DoctorEntity;
+import com.example.medkit.domain.PatientEntity;
 import com.example.medkit.domain.Recipes;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -9,6 +10,7 @@ import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CustomRepositoryImpl implements CustomRepository {
@@ -59,5 +61,32 @@ public class CustomRepositoryImpl implements CustomRepository {
 
         List<Recipes> list = nativeQuery.getResultList();
         return list;
+    }
+
+    @Override
+    public Optional<DoctorEntity> findByPhoneNumberForDoctor(String phoneNumber) {
+        String  query= "select * from md_doctor t where t.phone_number like '%"+phoneNumber+"%'\n";
+
+        Query nativeQuery = entityManager.createNativeQuery(query, DoctorEntity.class);
+        List<DoctorEntity> p =  nativeQuery.getResultList();
+
+        if(p.isEmpty())
+            return Optional.ofNullable(new DoctorEntity());
+        else
+            return Optional.ofNullable(p.get(0));
+    }
+
+    @Override
+    public Optional<PatientEntity> findByPhoneNumberForPatient(String phoneNumber) {
+        String  query= "select * from md_patients t where t.phone_number like '%"+phoneNumber+"%'\n";
+
+        Query nativeQuery = entityManager.createNativeQuery(query, PatientEntity.class);
+        List<PatientEntity> p =  nativeQuery.getResultList();
+
+        if(p.isEmpty())
+        return Optional.ofNullable(new PatientEntity());
+        else
+            return Optional.ofNullable(p.get(0));
+
     }
 }

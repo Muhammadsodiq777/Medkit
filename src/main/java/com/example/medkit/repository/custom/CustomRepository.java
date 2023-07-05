@@ -1,9 +1,11 @@
 package com.example.medkit.repository.custom;
 
 import com.example.medkit.domain.DoctorEntity;
+import com.example.medkit.domain.PatientEntity;
 import com.example.medkit.domain.Recipes;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CustomRepository {
 
@@ -14,6 +16,8 @@ public interface CustomRepository {
 
     List<Recipes> getRecipesByDoctorAndUserId(Long doctorId, Long patientId);
 
+    Optional<DoctorEntity> findByPhoneNumberForDoctor(String phoneNumber);
 
+    Optional<PatientEntity> findByPhoneNumberForPatient(String phoneNumber);
 
 }

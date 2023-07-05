@@ -40,8 +40,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public GeneralResponse<?> makeAppointment(String patientPhoneNumber, String doctorsPhoneNumber, String startDate, String endDate) {
 
-        Optional<PatientEntity> patient = patientRepository.findByPhoneNumber(patientPhoneNumber);
-        Optional<DoctorEntity> doctor = doctorRepository.findByPhoneNumber(doctorsPhoneNumber);
+        Optional<PatientEntity> patient = patientRepository.findByPhoneNumberForPatient(patientPhoneNumber);
+        Optional<DoctorEntity> doctor = doctorRepository.findByPhoneNumberForDoctor(doctorsPhoneNumber);
         if (patient.isPresent() && doctor.isPresent()){
             Appointment appointment= new Appointment();
             appointment.setPatientId(patient.get().getId());
