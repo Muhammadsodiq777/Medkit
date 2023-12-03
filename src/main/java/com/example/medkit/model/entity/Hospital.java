@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "hospitals")
@@ -26,4 +28,7 @@ public class Hospital extends BaseEntity {
 
     @OneToMany
     private List<Image> images = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "hospitals")
+    private Set<Employee> employees = new HashSet<>();
 }

@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -27,4 +29,12 @@ public class Employee extends BaseEntity {
 
     @OneToMany
     private List<Image> images = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "employees")
+    @JoinTable(
+            name = "Hospital_Employees",
+            joinColumns = { @JoinColumn(name = "employee_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "hospital_id",  referencedColumnName = "id")}
+    )
+    private Set<Hospital> hospitals = new HashSet<>();
 }
