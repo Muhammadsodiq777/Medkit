@@ -15,4 +15,6 @@ public class User extends BaseEntity {
     private String email;
     private String password;
     private String type;
+    private String smsCode;
+    private String sessionKey;
 }

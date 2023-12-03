@@ -5,4 +5,5 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
     <include file="db/changelog/changeset/1-create-user.sql" author="Doston" />
     <include file="db/changelog/changeset/2-create-employer.sql" author="MuhammadSodiq" />
+    <include file="db/changelog/changeset/3-alter-user-table.sql" author="Doston" />
 </databaseChangeLog>
