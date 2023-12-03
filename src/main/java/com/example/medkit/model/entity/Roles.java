@@ -21,8 +21,6 @@ public class Roles {
     @Enumerated(EnumType.STRING)
     private Role roleName;
 
-    private String displayName;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Roles parent;

@@ -37,7 +37,7 @@ public class GeneralResponse {
         return new GeneralResponse(200, data);
     }
 
-    public static GeneralResponse error(int code, String message, Map<String, Object> error) {
+    public static GeneralResponse error(int code, String message, Object error) {
         return new GeneralResponse(code, message, error);
     }
 
