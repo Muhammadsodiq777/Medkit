@@ -1,4 +1,4 @@
-package com.example.medkit.dto.request.auth;
+package com.example.medkit.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CheckResponse {
-    private boolean exist;
-    private String phoneNumber;
-    private String sessionKey;
+public class TokenDto {
+    private String accessToken;
+    private String refreshToken;
 }
