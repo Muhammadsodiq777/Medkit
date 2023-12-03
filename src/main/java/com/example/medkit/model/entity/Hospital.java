@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "hospital")
+@Table(name = "hospitals")
 @Getter
 @Setter
 public class Hospital extends BaseEntity {

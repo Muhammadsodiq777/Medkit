@@ -1,9 +1,7 @@
 package com.example.medkit.model.entity;
 
 import com.example.medkit.model.base.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +20,10 @@ public class Employee extends BaseEntity {
     private String passportNumber;
 
     private String pinfl;
+
+    @OneToOne
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    private User user;
 
     @OneToMany
     private List<Image> images = new ArrayList<>();
