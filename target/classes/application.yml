@@ -1,14 +1,13 @@
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: admin
-    password: 1234
-    driverClassName: org.postgresql.Driver
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+  profiles:
+    active: local
+  application:
+    name: MedKit
+
+  liquibase:
+    change-log: db/changelog/liquibase-changeLog.xml
+#    Liquibase turn on or off
+    enabled: false
+
 server:
-  port: 8085
+  port: 8082

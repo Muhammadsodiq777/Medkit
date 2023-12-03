@@ -2,4 +2,12 @@ spring:
   profiles:
     active: local
   application:
-    name: medkit
+    name: MedKit
+
+  liquibase:
+    change-log: db/changelog/liquibase-changeLog.xml
+#    Liquibase turn on or off
+    enabled: false
+
+server:
+  port: 8082
