@@ -30,11 +30,11 @@ public class Employee extends BaseEntity {
     @OneToMany
     private List<Image> images = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "employees")
+    @ManyToMany
     @JoinTable(
-            name = "Hospital_Employees",
-            joinColumns = { @JoinColumn(name = "employee_id", referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "hospital_id",  referencedColumnName = "id")}
+            name = "hospital_employees",
+            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "hospital_id",  referencedColumnName = "id")
     )
     private Set<Hospital> hospitals = new HashSet<>();
 }

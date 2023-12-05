@@ -2,12 +2,16 @@ package com.example.medkit.services.user.impl;
 
 import com.example.medkit.dto.PatientDto;
 import com.example.medkit.dto.ReqHeader;
-import com.example.medkit.dto.TokenDto;
+import com.example.medkit.dto.AuthenticationResponse;
 import com.example.medkit.dto.request.auth.*;
+import com.example.medkit.dto.request.employee.EmployeeDto;
 import com.example.medkit.dto.response.GeneralResponse;
+import com.example.medkit.mapper.EmployeeMapper;
 import com.example.medkit.mapper.PatientMapper;
+import com.example.medkit.model.entity.Employee;
 import com.example.medkit.model.entity.Patient;
 import com.example.medkit.model.entity.User;
+import com.example.medkit.repository.EmployeeRepository;
 import com.example.medkit.repository.PatientRepository;
 import com.example.medkit.repository.UserRepository;
 import com.example.medkit.services.jwt.JwtService;
@@ -18,6 +22,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +43,9 @@ public class UserServiceImpl implements UserService {
     private final ObjectMapper objectMapper;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final EmployeeMapper employeeMapper;
+    private final EmployeeRepository employeeRepository;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public GeneralResponse smsAsk(SmsRequest request, ReqHeader reqHeader) {
@@ -98,9 +107,9 @@ public class UserServiceImpl implements UserService {
         patientRepository.save(patient);
         ObjectNode response = objectMapper.createObjectNode();
         PatientDto patientDto = patientMapper.toDto(patient);
-        TokenDto tokenDto = new TokenDto(jwtService.createAccessToken(user, new Date()), jwtService.createRefreshToken(new Date()));
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse(jwtService.createAccessToken(user, new Date()), jwtService.createRefreshToken(new Date()));
         response.putPOJO("user", patientDto);
-        response.putPOJO("token", tokenDto);
+        response.putPOJO("token", authenticationResponse);
         return GeneralResponse.success(response);
     }
 
@@ -116,9 +125,9 @@ public class UserServiceImpl implements UserService {
         ObjectNode response = objectMapper.createObjectNode();
         if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             PatientDto patientDto = patientMapper.toDto(patientRepository.findByUser(user));
-            TokenDto tokenDto = new TokenDto(jwtService.createAccessToken(user, new Date()), jwtService.createRefreshToken(new Date()));
+            AuthenticationResponse authenticationResponse = new AuthenticationResponse(jwtService.createAccessToken(user, new Date()), jwtService.createRefreshToken(new Date()));
             response.putPOJO("user", patientDto);
-            response.putPOJO("token", tokenDto);
+            response.putPOJO("token", authenticationResponse);
             return GeneralResponse.success(response);
         }
         return GeneralResponse.error(404, messageSourceService.getMessage("user.password", reqHeader.getLang()));
@@ -141,5 +150,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public GeneralResponse refreshToken(String refreshToken, ReqHeader reqHeader) {
         return GeneralResponse.success("");
+    }
+
+    @Override
+    public GeneralResponse employeeLogin(EmployeeLoginRequest request, ReqHeader reqHeader) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getPhoneNumber(), request.getPassword()));
+        User user = userRepository.findByPhoneNumber(request.getPhoneNumber());
+        if (user == null) {
+            return GeneralResponse.error(404, messageSourceService.getMessage("user.notfound", reqHeader.getLang()));
+        }
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            return GeneralResponse.success(messageSourceService.getMessage("change.password.success", reqHeader.getLang()));
+        }
+        ObjectNode response = objectMapper.createObjectNode();
+
+        Employee employee = employeeRepository.findByUser(user);
+        if (employee == null) {
+            return GeneralResponse.error(404, messageSourceService.getMessage("user.notfound", reqHeader.getLang()));
+        }
+
+        EmployeeDto employeeDto = employeeMapper.toDto(employee);
+        response.putPOJO("user", employeeDto);
+        response.putPOJO("token", new AuthenticationResponse(jwtService.createAccessToken(user, new Date()), jwtService.createRefreshToken(new Date())));
+        return GeneralResponse.success(response);
     }
 }

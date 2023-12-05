@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth/patient")
-public class AuthController {
+public class AuthPatientController {
 
     private final UserService userService;
     private final MessageSourceService messageSourceService;
 
-    public AuthController(UserService userService, MessageSourceService messageSourceService) {
+    public AuthPatientController(UserService userService, MessageSourceService messageSourceService) {
         this.userService = userService;
         this.messageSourceService = messageSourceService;
     }
@@ -101,11 +101,5 @@ public class AuthController {
         reqHeader.setUserAgent(userAgent);
         reqHeader.setLang(lang);
         return ResponseEntity.ok(userService.refreshToken(refreshToken, reqHeader));
-    }
-
-    @PostMapping("employee-login")
-    @Operation(summary = "Xodimlarning accountiga kirish uchun")
-    public ResponseEntity<GeneralResponse> employeeLogin() {
-        return null;
     }
 }

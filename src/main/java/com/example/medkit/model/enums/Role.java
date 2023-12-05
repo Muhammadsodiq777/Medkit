@@ -1,28 +1,23 @@
 package com.example.medkit.model.enums;
 
-import com.example.medkit.exceptions.NotFoundException;
 import lombok.Getter;
 
 @Getter
 public enum Role {
 
-    SUPER_ADMIN(1),
-    MANAGER(2),
-    HOSPITAL(3),
-    PATIENT(4);
+    ROLE_SUPER_ADMIN("SUPER_ADMIN"),
+    ROLE_MANAGER("MANAGER"),
+    ROLE_USER("USER"),
+    ROLE_ORGANIZATION_ADMIN("ORGANIZATION_ADMIN"),
+    ROLE_ORGANIZATION_MANAGER("ORGANIZATION_MANAGER"),
+    ROLE_ORGANIZATION_DOCTOR("ORGANIZATION_DOCTOR"),
+    ROLE_ORGANIZATION_RECEPTION("ORGANIZATION_RECEPTION"),
+    ROLE_ORGANIZATION_CASHIER("ORGANIZATION_CASHIER"),
+    ROLE_ORGANIZATION_NURSE("ORGANIZATION_NURSE");
 
-    private final int id;
+    private final String value;
 
-    Role(int id) {
-        this.id = id;
-    }
-
-    public static Role getRole(int id) {
-        for (Role r: Role.values()){
-            if(r.getId() == id){
-                return r;
-            }
-        }
-        throw new NotFoundException("Role Not Found");
+    Role(String value) {
+        this.value = value;
     }
 }

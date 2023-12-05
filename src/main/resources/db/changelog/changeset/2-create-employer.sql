@@ -29,19 +29,19 @@ CREATE TABLE  hospitals(
 );
 
 CREATE TABLE images (
-                        id                  SERIAL PRIMARY KEY,
-                        created_date        TIMESTAMP,
-                        updated_date        TIMESTAMP,
-                        active              BOOLEAN NOT NULL DEFAULT FALSE,
-                        content_type        VARCHAR(20),
-                        url                 VARCHAR(255),
-                        length              BIGINT,
-                        filename            VARCHAR(100),
-                        type                VARCHAR(30),
-                        patient_id          BIGINT,
-                        hospital_id         BIGINT,
-                        employee_id         BIGINT,
-                        CONSTRAINT fk_images_patients FOREIGN KEY (patient_id) REFERENCES patients(id),
-                        CONSTRAINT fk_images_hospitals FOREIGN KEY (hospital_id) REFERENCES hospitals(id),
-                        CONSTRAINT fk_images_employees FOREIGN KEY (employee_id) REFERENCES employees(id)
+    id                  SERIAL PRIMARY KEY,
+    created_date        TIMESTAMP,
+    updated_date        TIMESTAMP,
+    active              BOOLEAN NOT NULL DEFAULT FALSE,
+    content_type        VARCHAR(20),
+    url                 VARCHAR(255),
+    length              BIGINT,
+    filename            VARCHAR(100),
+    type                VARCHAR(30),
+    patient_id          BIGINT,
+    hospital_id         BIGINT,
+    employee_id         BIGINT,
+    CONSTRAINT fk_images_patients FOREIGN KEY (patient_id) REFERENCES patients(id),
+    CONSTRAINT fk_images_hospitals FOREIGN KEY (hospital_id) REFERENCES hospitals(id),
+    CONSTRAINT fk_images_employees FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
