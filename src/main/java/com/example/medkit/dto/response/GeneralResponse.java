@@ -37,6 +37,10 @@ public class GeneralResponse {
         return new GeneralResponse(200, data);
     }
 
+    public static GeneralResponse success() {
+        return new GeneralResponse(200, "success");
+    }
+
     public static GeneralResponse error(int code, String message, Object error) {
         return new GeneralResponse(code, message, error);
     }

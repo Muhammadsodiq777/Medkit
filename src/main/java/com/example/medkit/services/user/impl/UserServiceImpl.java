@@ -3,6 +3,7 @@ package com.example.medkit.services.user.impl;
 import com.example.medkit.dto.PatientDto;
 import com.example.medkit.dto.ReqHeader;
 import com.example.medkit.dto.AuthenticationResponse;
+import com.example.medkit.dto.UserDto;
 import com.example.medkit.dto.request.auth.*;
 import com.example.medkit.dto.request.employee.EmployeeDto;
 import com.example.medkit.dto.response.GeneralResponse;
@@ -10,9 +11,12 @@ import com.example.medkit.mapper.EmployeeMapper;
 import com.example.medkit.mapper.PatientMapper;
 import com.example.medkit.model.entity.Employee;
 import com.example.medkit.model.entity.Patient;
+import com.example.medkit.model.entity.Roles;
 import com.example.medkit.model.entity.User;
+import com.example.medkit.model.enums.Role;
 import com.example.medkit.repository.EmployeeRepository;
 import com.example.medkit.repository.PatientRepository;
+import com.example.medkit.repository.RoleRepository;
 import com.example.medkit.repository.UserRepository;
 import com.example.medkit.services.jwt.JwtService;
 import com.example.medkit.services.sms.SmsService;
@@ -28,6 +32,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -45,6 +50,7 @@ public class UserServiceImpl implements UserService {
     private final JwtService jwtService;
     private final EmployeeMapper employeeMapper;
     private final EmployeeRepository employeeRepository;
+    private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
 
     @Override
@@ -154,10 +160,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public GeneralResponse employeeLogin(EmployeeLoginRequest request, ReqHeader reqHeader) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getPhoneNumber(), request.getPassword()));
-        User user = userRepository.findByPhoneNumber(request.getPhoneNumber());
+//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getPhoneNumber(), request.getPassword()));
+        User user = userRepository.findByPhoneNumber(request.getUsername());
         if (user == null) {
-            return GeneralResponse.error(404, messageSourceService.getMessage("user.notfound", reqHeader.getLang()));
+            return GeneralResponse.error(404, messageSourceService.getMessage("user.employee.notfound", reqHeader.getLang()));
         }
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
@@ -167,12 +173,42 @@ public class UserServiceImpl implements UserService {
 
         Employee employee = employeeRepository.findByUser(user);
         if (employee == null) {
-            return GeneralResponse.error(404, messageSourceService.getMessage("user.notfound", reqHeader.getLang()));
+            return GeneralResponse.error(404, messageSourceService.getMessage("user.employee.notfound", reqHeader.getLang()));
         }
-
         EmployeeDto employeeDto = employeeMapper.toDto(employee);
         response.putPOJO("user", employeeDto);
         response.putPOJO("token", new AuthenticationResponse(jwtService.createAccessToken(user, new Date()), jwtService.createRefreshToken(new Date())));
         return GeneralResponse.success(response);
+    }
+
+    @Override
+    public User saveHospitalUser(UserDto userDto, User user, Role roleName) {
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        Set<Roles> roles = user.getRoles();
+        Roles role = roleRepository.findByRoleName(roleName);
+        roles.add(role);
+        user.setRoles(roles);
+        userRepository.save(user);
+        return user;
+    }
+
+    private boolean isSuperAdmin(Set<Roles> roles) {
+        for (Roles role: roles) {
+            if (role.getRoleName() == Role.ROLE_SUPER_ADMIN) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private boolean isOrganisation(Set<Roles> roles) {
+        for (Roles role: roles) {
+            if (role.getRoleName().getValue().contains("ORGANIZATION"))
+                return true;
+        }
+        return false;
     }
 }

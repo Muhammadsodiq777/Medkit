@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class EmployeeLoginRequest {
     @NotNull
-    private String phoneNumber;
+    private String username;
     @NotNull
     private String password;
 }

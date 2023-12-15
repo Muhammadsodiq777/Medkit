@@ -20,11 +20,6 @@ public class Hospital extends BaseEntity {
     private String accountNumber;
     private String phoneNumber;
     private String email;
-    private String password;
-
-    @OneToOne
-    @JoinColumn(name = "owner_id", referencedColumnName = "id")
-    private User user;
 
     @OneToMany
     private List<Image> images = new ArrayList<>();

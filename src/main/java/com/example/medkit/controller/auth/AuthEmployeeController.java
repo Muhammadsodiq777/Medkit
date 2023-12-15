@@ -5,6 +5,7 @@ import com.example.medkit.dto.request.auth.EmployeeLoginRequest;
 import com.example.medkit.dto.response.GeneralResponse;
 import com.example.medkit.services.source.MessageSourceService;
 import com.example.medkit.services.user.UserService;
+import com.example.medkit.utils.RegexUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,8 @@ public class AuthEmployeeController {
     @Operation(summary = "Xodimlarning accountiga kirish uchun")
     public ResponseEntity<GeneralResponse> employeeLogin(@Valid @RequestBody EmployeeLoginRequest request,
                                                          @RequestHeader(name = "lang", required = false, defaultValue = "uz") String lang) {
-        if (!request.getPhoneNumber().startsWith("+998")) {
-            return ResponseEntity.badRequest().body(GeneralResponse.error(400, messageSourceService.getMessage("phoneNumber.format", lang)));
+        if (!RegexUtils.isUsername(request.getUsername())) {
+            return ResponseEntity.badRequest().body(GeneralResponse.error(400, messageSourceService.getMessage("username.format", lang)));
         }
         ReqHeader reqHeader = new ReqHeader();
         reqHeader.setLang(lang);

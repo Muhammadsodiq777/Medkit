@@ -7,4 +7,8 @@ import lombok.Setter;
 @Setter
 public class SaveResponse {
     private Long id;
+
+    public SaveResponse(Long id) {
+        this.id = id;
+    }
 }

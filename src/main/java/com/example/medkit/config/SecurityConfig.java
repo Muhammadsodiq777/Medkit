@@ -28,10 +28,16 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomUserDetailsService customUserDetailsService;
     private static final String[] WHITE_LIST_URL = {
-            "/v2/api-docs/**",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/swagger-resources",
             "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
             "/swagger-ui/**",
-            "/webjars/**"};
+            "/webjars/**",
+            "/swagger-ui.html"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

@@ -30,7 +30,7 @@ public class Employee extends BaseEntity {
     @OneToMany
     private List<Image> images = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "hospital_employees",
             joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),

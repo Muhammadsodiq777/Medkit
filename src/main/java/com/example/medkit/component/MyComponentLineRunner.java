@@ -1,18 +1,29 @@
 package com.example.medkit.component;
 
+import com.example.medkit.model.entity.Roles;
+import com.example.medkit.model.entity.User;
+import com.example.medkit.model.enums.Role;
+import com.example.medkit.repository.RoleRepository;
+import com.example.medkit.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.support.BeanDefinitionDsl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.util.Collections;
+import java.util.Set;
 
 @Component
+@RequiredArgsConstructor
 public class MyComponentLineRunner implements CommandLineRunner {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public void run(String... args) throws Exception {
         serverMaster();

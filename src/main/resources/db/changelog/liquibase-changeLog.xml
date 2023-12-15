@@ -9,4 +9,7 @@
     <include file="db/changelog/changeset/4-create-role-table.sql" author="Doston" />
     <include file="db/changelog/changeset/5-create-user-role-table.sql" author="Doston" />
     <include file="db/changelog/changeset/6-create-constrant-hospital-employee.sql" author="Doston" />
+    <include file="db/changelog/changeset/7-super-admin-insert.sql" author="Doston" />
+    <include file="db/changelog/changeset/8-insert-employee.sql" author="Doston" />
+    <include file="db/changelog/changeset/9-delete-hospital-user.sql" author="Doston" />
 </databaseChangeLog>

@@ -1,25 +1,24 @@
 package com.example.medkit.services.source;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 import java.util.MissingResourceException;
 
-@Service
+@Component
 public class MessageSourceService {
-    private final MessageSource messageSource;
-
-    public MessageSourceService(MessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
+    @Autowired
+    private MessageSource messageSource;
 
     public String getMessage(String key, String language) {
         String result;
         try {
-            result = messageSource.getMessage(key, null, Locale.forLanguageTag(language));
+            Locale locale = Locale.forLanguageTag(language);
+            result = messageSource.getMessage(key, null, locale);
         } catch (MissingResourceException e) {
-            result = "Не определен";
+            result = "Belgilanmagan";
         }
         return result;
     }
