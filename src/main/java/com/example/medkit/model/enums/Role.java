@@ -1,0 +1,23 @@
+package com.example.medkit.model.enums;
+
+import lombok.Getter;
+
+@Getter
+public enum Role {
+
+    ROLE_SUPER_ADMIN("SUPER_ADMIN"),
+    ROLE_MANAGER("MANAGER"),
+    ROLE_USER("USER"),
+    ROLE_ORGANIZATION_ADMIN("ORGANIZATION_ADMIN"),
+    ROLE_ORGANIZATION_MANAGER("ORGANIZATION_MANAGER"),
+    ROLE_ORGANIZATION_DOCTOR("ORGANIZATION_DOCTOR"),
+    ROLE_ORGANIZATION_RECEPTION("ORGANIZATION_RECEPTION"),
+    ROLE_ORGANIZATION_CASHIER("ORGANIZATION_CASHIER"),
+    ROLE_ORGANIZATION_NURSE("ORGANIZATION_NURSE");
+
+    private final String value;
+
+    Role(String value) {
+        this.value = value;
+    }
+}
